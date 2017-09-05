@@ -11,7 +11,7 @@ module.exports = (app, data) => {
             .then(candidate => {
                 res.send({ success: true, result: candidate });
             })
-            .catch(err => res.send({ error: err.message }))
+            .catch(err => res.send({ error: err.message }));
     })
     .post("/candidate", (req, res) => {
         data.candidates.create(req.body)
@@ -19,6 +19,28 @@ module.exports = (app, data) => {
                 res.send({ success: true, result: id });
             })
             .catch(err => res.send({ error: err.message }));
+    })
+    .put("/candidate", (req, res) => {
+        let id = req.headers["x-candidate-id"];
+        data.candidates.update(id, req.body)
+            .then(candidate => {
+                res.send({ success: true, result: candidate });
+            })
+            .catch(err => res.send({ error: err.message }))
+    })
+    .put("/candidate/add-jobs", (req, res) => {
+        let id = req.headers["x-candidate-id"];
+
+        if (!req.body.jobs) {
+            res.statusCode = 400;
+            res.send("Jobs are missing!");
+            return;
+        }
+        data.candidates.addJobs(id, req.body.jobs)
+            .then(candidate => {
+                res.send({ success: true, result: candidate });
+            })
+            .catch(err => res.send({ error: err.message }))
     })
     .get("/candidates", (req, res) => {
         data.candidates.all()

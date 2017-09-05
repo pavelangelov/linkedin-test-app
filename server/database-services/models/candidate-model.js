@@ -49,7 +49,14 @@ let candidateSchema = new Schema({
     linkedIn: {
         type: String,
         required: true
-    }
+    },
+    createdOn: {
+        type: Date
+    },
+    lastUpdate: {
+        type: Date
+    },
+    assignedJobs: []
 });
 
 candidateSchema.pre("save", true, function (next, done) {
