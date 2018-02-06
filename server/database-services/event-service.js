@@ -4,6 +4,8 @@ const ZohoEvent = require("./models").ZohoEvent;
 
 module.exports = {
     create(model, request) {
+        console.log(model);
+        console.log(request);
         let event = new ZohoEvent({
             event_type: model.event_type,
             data: model.data,
