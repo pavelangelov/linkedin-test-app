@@ -3,13 +3,11 @@
 const ZohoEvent = require("./models").ZohoEvent;
 
 module.exports = {
-    create(model, request) {
+    create(model) {
         console.log(model);
-        console.log(request);
         let event = new ZohoEvent({
             event_type: model.event_type,
-            data: model.data,
-            request: request
+            data: model.data || model
         });
 
         return new Promise((resolve, reject) => {

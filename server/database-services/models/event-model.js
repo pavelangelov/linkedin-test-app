@@ -11,15 +11,12 @@ let eventSchema = new Schema({
     },
     data: {
         type: Object
-    },
-    request: {
-        type: Object
     }
 });
 
 eventSchema.pre("save", true, function (next, done) {
     let self = this;
-    mongoose.models["ZohoEvent"].findOne({ email: self.email }, function (err, event) {
+    mongoose.models["ZohoEvent"].findOne({ _id: self._id }, function (err, event) {
         if (err) {
             done(err);
         } else {
