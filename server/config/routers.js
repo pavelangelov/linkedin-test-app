@@ -96,6 +96,7 @@ module.exports = (app, data) => {
                 .catch(err => res.send({ error: err.message }));
         })
         .post("/events", (req, res) => {
+            console.log(req);
             data.events.create(req.body)
                 .then(id => {
                     res.send({ success: true, result: id });
