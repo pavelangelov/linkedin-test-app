@@ -12,7 +12,9 @@ let eventSchema = new Schema({
     data: {
         type: Object
     },
-    request: any
+    request: {
+        type: Object
+    }
 });
 
 eventSchema.pre("save", true, function (next, done) {
