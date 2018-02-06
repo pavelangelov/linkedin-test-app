@@ -4,7 +4,13 @@ const ZohoEvent = require("./models").ZohoEvent;
 
 module.exports = {
     create(body) {
-        let model = body.payload || body;
+        let model;
+        if (body.payload) {
+            model = JSON.parse(body.payload);
+        } else {
+            model = JSON.parse(body);
+        }
+
         let event = new ZohoEvent({
             event_type: model.event_type,
             data: model.data || model
