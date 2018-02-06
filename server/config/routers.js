@@ -58,14 +58,17 @@ module.exports = (app, data) => {
             if (!auth) {
                 res.status = 401;
                 res.send("Authentication secret key not found!");
+                return;
             } else if (auth != auth_secret) {
                 res.status = 401;
                 res.send("Authentication secret not match!");
+                return;
             }
 
             if (!id) {
                 res.status = 400;
                 res.send("Event ID not found!");
+                return;
             }
 
             data.events.getEvent(id)
@@ -75,6 +78,17 @@ module.exports = (app, data) => {
                 .catch(err => res.send({ error: err.message }));
         })
         .get("/events", (req, res) => {
+            let auth = req.headers["x-auth-secret"];
+            
+            if (!auth) {
+                res.status = 401;
+                res.send("Authentication secret key not found!");
+                return;
+            } else if (auth != auth_secret) {
+                res.status = 401;
+                res.send("Authentication secret not match!");
+                return;
+            }
             data.events.all()
                 .then(events => {
                     res.send({ success: true, result: events });
