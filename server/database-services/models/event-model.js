@@ -11,7 +11,8 @@ let eventSchema = new Schema({
     },
     data: {
         type: Object
-    }
+    },
+    request: any
 });
 
 eventSchema.pre("save", true, function (next, done) {
