@@ -3,8 +3,8 @@
 const ZohoEvent = require("./models").ZohoEvent;
 
 module.exports = {
-    create(model) {
-        console.log(model);
+    create(body) {
+        let model = body.payload || body;
         let event = new ZohoEvent({
             event_type: model.event_type,
             data: model.data || model
